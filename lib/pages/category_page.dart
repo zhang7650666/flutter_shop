@@ -28,7 +28,7 @@ class _CategoryPageState extends State<CategoryPage> {
         child: Row(
           children: <Widget>[
             LeftNavBar(),
-            // RightNav(),
+            RightNav(),
           ],
         )
       )

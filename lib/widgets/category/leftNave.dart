@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:convert';
+import 'package:provide/provide.dart';
 
 import '../../service/service_methods.dart';
 import '../../modle/category.dart';
+import '../../provide/child_category.dart';
 
 class LeftNavBar extends StatefulWidget {
   @override
@@ -12,6 +14,7 @@ class LeftNavBar extends StatefulWidget {
 
 class _LeftNavBarState extends State<LeftNavBar> {
   List categoryList = [];
+  int currentIndex = 0;
   @override
   void initState() { 
     super.initState();
@@ -23,9 +26,12 @@ class _LeftNavBarState extends State<LeftNavBar> {
       // print(data);
       CategoryModel category = CategoryModel.fromJson(data);
       setState(() {
-        categoryList = category.data; 
+        categoryList = category.data;  
       });
+      var childList = categoryList[0].bxMallSubDto;
+      Provide.value<ChildCategory>(context).getChildCategory(childList);
     });
+    
   }
   @override
   Widget build(BuildContext context) {
@@ -49,15 +55,21 @@ class _LeftNavBarState extends State<LeftNavBar> {
   }
 
   Widget _leftInkWell(int index) {
+    bool isClick = false;
+    isClick = (index == currentIndex) ? true : false;
     return InkWell(
       onTap: () {
-        print('分类点击');
+        setState(() {
+          currentIndex = index;
+        });
+        var childList = categoryList[index].bxMallSubDto;
+        Provide.value<ChildCategory>(context).getChildCategory(childList);
       },
       child: Container(
         height: ScreenUtil().setHeight(100),
         padding: EdgeInsets.only(left: 10, top: 20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: isClick ? Colors.black26: Colors.white,
           border: Border(
             bottom: BorderSide(
               width: 1,
