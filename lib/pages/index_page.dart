@@ -36,9 +36,9 @@ class _IndexPageState extends State<IndexPage> {
   // 存放类的list
   final List<Widget> tabBodies = [
     HomePage(),
+    CategoryPage(),
     CartPage(),
     MemberPage(),
-    CategoryPage(),
   ];
 
   // 当前所在的页面
@@ -88,11 +88,11 @@ class _IndexPageState extends State<IndexPage> {
           });
         },
       ),
-      appBar: AppBar(
-        title: Text(
-          '百姓生活+'
-        ),
-      ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     '百姓生活+'
+      //   ),
+      // ),
       body: IndexedStack(
         index: currentIndex,
         children: tabBodies,

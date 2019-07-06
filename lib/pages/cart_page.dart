@@ -1,10 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:provide/provide.dart';
+import '../provide/counter.dart';
+
 class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('购物城页面'),
+        child: Column(
+          children: <Widget>[
+            Number(),
+            MyButton(),
+          ],
+        ),
+      )
+    );
+  }
+}
+
+
+class Number extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding:EdgeInsets.only(top: 200),
+      child: Center(
+        child: Provide<Counter>(
+          builder:(countext, child, counter) {
+            return Text(
+              '${counter.value}',
+              style: Theme.of(context).textTheme.display1,
+            );
+          }
+        )
+      )
+    );
+  }
+}
+
+class MyButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: RaisedButton(
+        onPressed: () {
+          Provide.value<Counter>(context).increment();
+        },
+        child: Text('递增'),
       )
     );
   }

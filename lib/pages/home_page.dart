@@ -50,9 +50,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
       'lat': '35.76189',
     };
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('百姓生活+')
-      // ),
+      appBar: AppBar(
+        title: Text('百姓生活+')
+      ),
       /**
        * 注意事项 SingleChildScrollView 不能与listView 同时出现,会有冲突
        */
