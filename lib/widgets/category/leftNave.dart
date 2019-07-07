@@ -69,7 +69,7 @@ class _LeftNavBarState extends State<LeftNavBar> {
         height: ScreenUtil().setHeight(100),
         padding: EdgeInsets.only(left: 10, top: 20),
         decoration: BoxDecoration(
-          color: isClick ? Colors.black26: Colors.white,
+          color: isClick ? Color.fromRGBO(236, 236, 236, 1): Colors.white,
           border: Border(
             bottom: BorderSide(
               width: 1,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../category/rightTopNav.dart';
+import '../category/categoryGoodsList.dart';
 class RightNav extends StatefulWidget {
   @override
   _RightNavState createState() => _RightNavState();
@@ -12,7 +13,8 @@ class _RightNavState extends State<RightNav> {
     return Container(
       child: Column(
         children: <Widget>[
-          RightTopNav(),
+          RightTopBar(),
+          CategoryGoodsList(),
         ],
       )
     );
