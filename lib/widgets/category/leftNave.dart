@@ -6,6 +6,7 @@ import 'package:provide/provide.dart';
 import '../../service/service_methods.dart';
 import '../../modle/category.dart';
 import '../../provide/child_category.dart';
+import '../../provide/category_goods_list.dart';
 
 class LeftNavBar extends StatefulWidget {
   @override
@@ -63,7 +64,10 @@ class _LeftNavBarState extends State<LeftNavBar> {
           currentIndex = index;
         });
         var childList = categoryList[index].bxMallSubDto;
+        var categoryId = categoryList[index].mallCategoryId;
+        print('categoryId ${categoryId}');
         Provide.value<ChildCategory>(context).getChildCategory(childList);
+        Provide.value<CategoryGoodsListProvide>(context).getCategoryId(categoryId);
       },
       child: Container(
         height: ScreenUtil().setHeight(100),
