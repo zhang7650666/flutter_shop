@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
          */
         future: request('homePageContext',formData:formData),
         // future: getHomePageContent(),
-        builder: (BuildContext context, snapshot){
+        builder: (context, snapshot){
           // snapshot  快照
           /**
             * enum ConnectionState {
@@ -77,97 +77,65 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
             *  done,
             *}
            */
-
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-              return Text('Press button to start.');
-            case ConnectionState.active:
-            case ConnectionState.waiting:
-              return Text('Awaiting result...');
-            case ConnectionState.done:
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text('数据加载中........'),
-                );
-              } else {
-                // jsonDecode 反编译  将字符串转成对象
-                var data = jsonDecode(snapshot.data.toString());
-                data = data['data'];
-                List<Map> swiper = (data['slides'] as List).cast();
-                List<Map> navigatorList = (data['category'] as List).cast();
-                String adPicture = data['advertesPicture']['PICTURE_ADDRESS'];
-                String leaderImage = data['shopInfo']['leaderImage'];
-                String leaderPhone = data['shopInfo']['leaderPhone'];
-                List<Map> recommendList = (data['recommend'] as List).cast();
-                String floor1Title =data['floor1Pic']['PICTURE_ADDRESS'];//楼层1的标题图片
-                String floor2Title =data['floor2Pic']['PICTURE_ADDRESS'];//楼层1的标题图片
-                String floor3Title =data['floor3Pic']['PICTURE_ADDRESS'];//楼层1的标题图片
-                List<Map> floor1 = (data['floor1'] as List).cast(); //楼层1商品和图片 
-                List<Map> floor2 = (data['floor2'] as List).cast(); //楼层1商品和图片 
-                List<Map> floor3 = (data['floor3'] as List).cast(); //楼层1商品和图片 
-                // 使用easyrefresh 必须使用listView  而不能用SingleChildScrollView
-                // return SingleChildScrollView(
-                //   child: Column(
-                //     children: <Widget>[
-                //       SwiperDiy(swiperDataList: swiper),
-                //       TopNavigator(navigatorList: navigatorList),
-                //       AdBanner(adPicture:adPicture),
-                //       LeaderPhone(leaderImage: leaderImage, leaderPhone: leaderPhone),
-                //       Recommend(recommendList: recommendList,),
-                //       FloorTitle(picture_address:picture_address1),
-                //       FloorContent(floorGoodsList:floorGoodsList),
-                //       FloorTitle(picture_address:picture_address2),
-                //       FloorContent(floorGoodsList:floorGoodsList),
-                //       FloorTitle(picture_address:picture_address3),
-                //       FloorContent(floorGoodsList:floorGoodsList),
-                //       // HotGoods(),
-                //       _hotGoodsA()
-
-                //     ],
-                //   ),
-                // );
-                return EasyRefresh(
-                  refreshFooter: ClassicsFooter(
-                    key: _footerKey,
-                    bgColor: Colors.white,
-                    textColor: Colors.pink,
-                    moreInfoColor: Colors.pink,
-                    showMore: true,
-                    noMoreText: '',
-                    moreInfo: '加载中。。。',
-                    loadReadyText: '上拉加载中',
-                  ),
-                  child: ListView(
-                    children: <Widget>[
-                      SwiperDiy(swiperDataList: swiper),
-                      TopNavigator(navigatorList: navigatorList),
-                      AdBanner(adPicture:adPicture),
-                      LeaderPhone(leaderImage: leaderImage, leaderPhone: leaderPhone),
-                      Recommend(recommendList: recommendList,),
-                      FloorTitle(picture_address:floor1Title),
-                      FloorContent(floorGoodsList:floor1),
-                      FloorTitle(picture_address:floor2Title),
-                      FloorContent(floorGoodsList:floor2),
-                      FloorTitle(picture_address:floor3Title),
-                      FloorContent(floorGoodsList:floor3),
-                      // HotGoods(),
-                      _hotGoodsA()
-                    ],
-                  ),
-                  loadMore: ()async{
-                  print('开始加载更多');
-                    var formPage={'page': page};
-                    await  request('homePageBelowConten',formData:formPage).then((val){
-                      var data=json.decode(val.toString());
-                      List<Map> newGoodsList = (data['data'] as List ).cast();
-                      setState(() {
-                        hotGoodsList.addAll(newGoodsList);
-                        page++; 
-                      });
-                    });
-                  },
-                );
-              }
+          if (snapshot.hasData) {
+            // jsonDecode 反编译  将字符串转成对象
+            var data = json.decode(snapshot.data.toString());
+            data = data['data'];
+            List<Map> swiper = (data['slides'] as List).cast();
+            List<Map> navigatorList = (data['category'] as List).cast();
+            String adPicture = data['advertesPicture']['PICTURE_ADDRESS'];
+            String leaderImage = data['shopInfo']['leaderImage'];
+            String leaderPhone = data['shopInfo']['leaderPhone'];
+            List<Map> recommendList = (data['recommend'] as List).cast();
+            String floor1Title =data['floor1Pic']['PICTURE_ADDRESS'];//楼层1的标题图片
+            String floor2Title =data['floor2Pic']['PICTURE_ADDRESS'];//楼层1的标题图片
+            String floor3Title =data['floor3Pic']['PICTURE_ADDRESS'];//楼层1的标题图片
+            List<Map> floor1 = (data['floor1'] as List).cast(); //楼层1商品和图片 
+            List<Map> floor2 = (data['floor2'] as List).cast(); //楼层1商品和图片 
+            List<Map> floor3 = (data['floor3'] as List).cast(); //楼层1商品和图片 
+            return Container(
+              child: EasyRefresh(
+              refreshFooter: ClassicsFooter(
+                key: _footerKey,
+                bgColor: Colors.white,
+                textColor: Colors.pink,
+                moreInfoColor: Colors.pink,
+                showMore: true,
+                noMoreText: '',
+                moreInfo: '加载中。。。',
+                loadReadyText: '上拉加载中',
+              ),
+              child: ListView(
+                children: <Widget>[
+                  SwiperDiy(swiperDataList: swiper),
+                  TopNavigator(navigatorList: navigatorList),
+                  AdBanner(adPicture:adPicture),
+                  LeaderPhone(leaderImage: leaderImage, leaderPhone: leaderPhone),
+                  Recommend(recommendList: recommendList,),
+                  FloorTitle(picture_address:floor1Title),
+                  FloorContent(floorGoodsList:floor1),
+                  FloorTitle(picture_address:floor2Title),
+                  FloorContent(floorGoodsList:floor2),
+                  FloorTitle(picture_address:floor3Title),
+                  FloorContent(floorGoodsList:floor3),
+                  // HotGoods(),
+                  _hotGoodsA()
+                ],
+              ),
+              loadMore: ()async{
+              print('开始加载更多');
+                var formPage={'page': page};
+                await  request('homePageBelowConten',formData:formPage).then((val){
+                  var data=json.decode(val.toString());
+                  List<Map> newGoodsList = (data['data'] as List ).cast();
+                  setState(() {
+                    hotGoodsList.addAll(newGoodsList);
+                    page++; 
+                  });
+                });
+              },
+            ),
+            );
           }
         },
       )

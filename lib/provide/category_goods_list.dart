@@ -8,4 +8,10 @@ class CategoryGoodsListProvide with ChangeNotifier{
     notifyListeners();
   }
 
+  // 点击大类时更换商品列表
+  void getMoreList (List<CategoryListData> list) {
+    goodsList.addAll(list);
+    notifyListeners();
+  }
+
 }

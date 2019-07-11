@@ -7,18 +7,15 @@ import 'package:provide/provide.dart';
 import './provide/counter.dart';
 import './provide/child_category.dart';
 import './provide/category_goods_list.dart';
-import './provide/category_pub_data.dart';
 
 void main() {
   var counter = Counter();
   var childCategory = ChildCategory();
   var providers = Providers();
   var categoryGoodsListProvide = CategoryGoodsListProvide();
-  var categoryPubData = CategoryPubData();
   providers
     ..provide(Provider<Counter>.value(counter))
     ..provide(Provider<ChildCategory>.value(childCategory))
-    ..provide(Provider<CategoryPubData>.value(categoryPubData))
     ..provide(Provider<CategoryGoodsListProvide>.value(categoryGoodsListProvide));
     
   runApp(ProviderNode(child: MyApp(),providers: providers,));
