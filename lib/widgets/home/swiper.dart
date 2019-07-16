@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../routers/application.dart';
 // 首页轮播主页
 class SwiperDiy extends StatelessWidget {
   // final 声明的都是一个常量
@@ -16,7 +17,12 @@ class SwiperDiy extends StatelessWidget {
       child: Swiper(
         // 构造器
         itemBuilder: (BuildContext context, int index){
-          return Image.network("${swiperDataList[index]['image']}", fit:BoxFit.fill);
+          return InkWell(
+            onTap: (){
+              Application.router.navigateTo(context, '/detail?id=${swiperDataList[index]['goodsId']}');
+            },
+            child: Image.network("${swiperDataList[index]['image']}", fit:BoxFit.fill),
+          );
         },
         itemCount: swiperDataList.length,
         // 分页项是否显示

@@ -102,6 +102,15 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
       CategoryGoodsListModel goodsList = CategoryGoodsListModel.fromJson(data);
       // 解决没有数据报错异常
       if (goodsList.data == null) {
+        Fluttertoast.showToast(
+          msg: "已经到底了", // 提示信息
+          toastLength:Toast.LENGTH_LONG, // 提示框的大小
+          gravity: ToastGravity.CENTER, // 提示框显示的位置
+          backgroundColor: Colors.pink,
+          textColor: Colors.white,
+          fontSize: 16,
+        );
+
         Provide.value<ChildCategory>(context).changeNoMore('没有更多了');
       } else {
         Provide.value<CategoryGoodsListProvide>(context).getMoreList(goodsList.data);

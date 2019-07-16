@@ -11,6 +11,7 @@ import '../widgets/home/tel.dart';
 import '../widgets/home/recommend.dart';
 import '../widgets/home/floorTitle.dart';
 import '../widgets/home/floorContent.dart';
+import '../routers/application.dart';
 // import '../widgets/home/hotGoods.dart';
 
 
@@ -156,7 +157,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
       List<Widget> ListWidget = hotGoodsList.map((val){
         return InkWell(
           onTap: (){
-            // print('val');
+            Application.router.navigateTo(context, '/detail?id=${val['goodsId']}');
           },
           child: Container(
             width: ScreenUtil().setWidth(372),

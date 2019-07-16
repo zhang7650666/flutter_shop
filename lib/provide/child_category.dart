@@ -17,7 +17,7 @@ class ChildCategory with ChangeNotifier{
     categoryId = id; // 大类id
     childIndex = 0; // 每次点击大类，都要把子类索引清零
     BxMallSubDto all = BxMallSubDto();
-    all.mallSubId = '00';
+    all.mallSubId = '';
     all.mallCategoryId = '00';
     all.mallSubName = '全部';
     all.comments = 'null';
